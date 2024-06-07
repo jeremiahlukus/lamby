@@ -1,5 +1,5 @@
 require 'test_helper'
-
+require 'active_record'
 class HandlerTest < LambySpec
 
   let(:app)     { Rack::Builder.new { run Rails.application }.to_app }
@@ -451,6 +451,19 @@ class HandlerTest < LambySpec
 
   end
 
+  describe 'ActiveRecord::ConnectionNotEstablished' do
+    it 'retries and raises after 3 attempts' do
+      event = { 'some' => 'event' }
+      handler = Lamby::Handler.new(app, event, context)
+
+      # Mock the call_app method to raise the exception
+      allow(handler).to receive(:call_app).and_raise(ActiveRecord::ConnectionNotEstablished)
+
+      expect { handler.call }.to raise_error(ActiveRecord::ConnectionNotEstablished)
+      expect(handler).to have_received(:call_app).exactly(3).times
+    end
+  end
+  
   private
 
   def session_cookie(result)
