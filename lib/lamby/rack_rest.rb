@@ -36,6 +36,9 @@ module Lamby
         ::Rack::RACK_URL_SCHEME => 'https',
         ::Rack::RACK_INPUT => StringIO.new(body || ''),
         ::Rack::RACK_ERRORS => $stderr,
+        ::Rack::RACK_MULTITHREAD => false,
+        ::Rack::RACK_MULTIPROCESS => false,
+        ::Rack::RACK_RUNONCE => false,
         LAMBDA_EVENT => event,
         LAMBDA_CONTEXT => context
       }.tap do |env|
