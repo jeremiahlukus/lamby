@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lamby_updated (5.2.1)
+    lamby (5.2.0)
       lambda-console-ruby
       rack
 
@@ -190,7 +190,7 @@ DEPENDENCIES
   aws-sdk-ssm
   bundler
   lambdakiq
-  lamby_updated!
+  lamby!
   minitest
   minitest-focus
   mocha
